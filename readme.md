@@ -44,7 +44,7 @@ Set up the Azure CLI environment to connect to your account as follows:
 
 
 At this point you should be able to call the test scripts provided.  For example:
-    `python3 azcosmosdb_perms.py test1.sql`
+    `python3 azcosmosdb_perms.py script_file test1.sql`
 
 Note:  This was tested on both Windows 10 and MacOs 11.6
 
