@@ -1,0 +1,8 @@
+az cosmosdb sql role definition list --account-name cosmosdbacct01 --resource-group operatingsys-rg 
+az cosmosdb sql database list --account-name cosmosdbacct01 --resource-group operatingsys-rg
+az cosmosdb sql role assignment list --account-name cosmosdbacct01 --resource-group operatingsys-rg
+az cosmosdb sql container list --account-name cosmosdbacct01 --resource-group operatingsys-rg --database-name WebStore
+az cosmosdb sql role definition list --account-name cosmosdbacct01 --resource-group operatingsys-rg --query "[?roleName=='webstore_support']"
+az cosmosdb sql role definition list --account-name cosmosdbacct01 --resource-group operatingsys-rg --query "[?roleName=='webstore_itemupdate']"
+az cosmosdb sql role definition list --account-name cosmosdbacct01 --resource-group operatingsys-rg --query "[?roleName=='webstore_itemadmin']"
+az cosmosdb sql role definition list --account-name cosmosdbacct01 --resource-group operatingsys-rg --query "[?roleName=='webstore_reporter']"

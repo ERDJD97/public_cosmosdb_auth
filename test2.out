@@ -1,0 +1,88 @@
+Working with account:
+  User        : edwinrdiaz@outlook.com
+  Subscription: devops
+
+-- set context for subsequent commands
+[]> use cosmosdbacct01.WebStore
+~ Set account to cosmosdbacct01
+~ Set database to WebStore
+
+-- list definitions defined
+[cosmosdbacct01.WebStore]> list roles
+~ Roles in account cosmosdbacct01
+ ------------------------------------------------------------------------------
+ | name                                 | roleName                            |
+ ------------------------------------------------------------------------------
+ | ca52f0ac-c332-43eb-93fa-7fb06ce94e88 | webstore_reporter                   |
+ | da6d2501-4b44-4f11-a197-14785ade6ca8 | webstore_itemupdate                 |
+ | 164f9b64-896d-4ed4-98b4-365b8a5a233f | webstore_support                    |
+ | b9640753-2891-4bc7-ac0d-dd574aa2d924 | webstore_itemadmin                  |
+ | 00000000-0000-0000-0000-000000000001 | Cosmos DB Built-in Data Reader      |
+ | 00000000-0000-0000-0000-000000000002 | Cosmos DB Built-in Data Contributor |
+ ------------------------------------------------------------------------------
+[cosmosdbacct01.WebStore]> list databases
+~ Databases in account cosmosdbacct01
+ ------------
+ | name     |
+ ------------
+ | WebStore |
+ ------------
+[cosmosdbacct01.WebStore]> list grants
+ -----------------------------------------------------------------------------------------------------------
+ | User                                               | Role                | Scope                        |
+ -----------------------------------------------------------------------------------------------------------
+ | appCustomerAdmin@contosa.com | webstore_itemadmin  | /dbs/WebStore/colls/Customer |
+ | appCustomer@contosa.com      | webstore_itemupdate | /dbs/WebStore/colls/Customer |
+ | dev.franklin@contosa.com     | webstore_support    | /dbs/WebStore                |
+ | appReport@contosa.com        | webstore_reporter   | /dbs/WebStore                |
+ -----------------------------------------------------------------------------------------------------------
+[cosmosdbacct01.WebStore]> list collections
+~ Collections in database
+ ---------------
+ | name        |
+ ---------------
+ | ProductMeta |
+ | Customer    |
+ | Product     |
+ ---------------
+
+-- describe the roles
+[cosmosdbacct01.WebStore]> describe role webstore_support
+  Role: webstore_support   Scope: /dbs/WebStore
+ ----------------------------------------------------------------------------------------
+ | privilege                                                                            |
+ ----------------------------------------------------------------------------------------
+ | Microsoft.DocumentDB/databaseAccounts/readMetadata                                   |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/read             |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeQuery           |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeStoredProcedure |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/readChangeFeed         |
+ ----------------------------------------------------------------------------------------
+[cosmosdbacct01.WebStore]> describe role webstore_itemupdate
+  Role: webstore_itemupdate   Scope: /dbs/WebStore
+ -------------------------------------------------------------------------------
+ | privilege                                                                   |
+ -------------------------------------------------------------------------------
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/read    |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/replace |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/upsert  |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeQuery  |
+ -------------------------------------------------------------------------------
+[cosmosdbacct01.WebStore]> describe role webstore_itemadmin
+  Role: webstore_itemadmin   Scope: /dbs/WebStore
+ -------------------------------------------------------------------------
+ | privilege                                                             |
+ -------------------------------------------------------------------------
+ | Microsoft.DocumentDB/databaseAccounts/readMetadata                    |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/* |
+ -------------------------------------------------------------------------
+[cosmosdbacct01.WebStore]> describe role webstore_reporter
+  Role: webstore_reporter   Scope: /dbs/WebStore
+ ------------------------------------------------------------------------------
+ | privilege                                                                  |
+ ------------------------------------------------------------------------------
+ | Microsoft.DocumentDB/databaseAccounts/readMetadata                         |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeQuery |
+ | Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/read   |
+ ------------------------------------------------------------------------------
+

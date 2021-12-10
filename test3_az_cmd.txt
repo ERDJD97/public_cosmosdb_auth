@@ -1,0 +1,8 @@
+az cosmosdb sql role assignment delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --role-assignment-id a868dec6-5144-4f29-b33e-c0a90648b122 --yes 
+az cosmosdb sql role assignment delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --role-assignment-id a07b7069-68b9-45ba-88a5-c5d7f815abad --yes 
+az cosmosdb sql role assignment delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --role-assignment-id 9b118cab-ed21-48f7-9d47-6f952f3235aa --yes 
+az cosmosdb sql role assignment delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --role-assignment-id 842fd6ac-71b2-4313-8dfe-e9c39d862c22 --yes 
+az cosmosdb sql role definition delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --id 164f9b64-896d-4ed4-98b4-365b8a5a233f  --yes
+az cosmosdb sql role definition delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --id da6d2501-4b44-4f11-a197-14785ade6ca8  --yes
+az cosmosdb sql role definition delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --id b9640753-2891-4bc7-ac0d-dd574aa2d924  --yes
+az cosmosdb sql role definition delete --account-name cosmosdbacct01 --resource-group operatingsys-rg --id ca52f0ac-c332-43eb-93fa-7fb06ce94e88  --yes

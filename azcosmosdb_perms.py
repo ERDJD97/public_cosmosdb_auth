@@ -160,12 +160,12 @@ def get_container(dbname, container_name):
 
 # get user upn from an id
 def get_user_from_id(userid):
-    return run_az_cmd("az ad user show --id '{}' --query 'userPrincipalName' --output json".format(userid))
+    return run_az_cmd("az ad user show --id {} --query userPrincipalName --output json".format(userid))
 
 # get role name from a role id
 def get_role_from_id(roleid):
     acct = validate_account()
-    return run_az_cmd("az cosmosdb sql role definition show --account-name {} --resource-group {} --id '{}' --query roleName --output json".format(acct["name"], acct["resourceGroup"],roleid))
+    return run_az_cmd("az cosmosdb sql role definition show --account-name {} --resource-group {} --id {} --query roleName --output json".format(acct["name"], acct["resourceGroup"],roleid))
 
 # returns array of json obj for roles
 # p_role_name: role to match... if not passed, returns all rows in current account
@@ -182,8 +182,9 @@ def get_roles(p_role_name = "", p_print_az_cmd = False):
 # p_scope: scope of role assignment, if any
 def get_role_assignment(p_role_id, p_user_id, p_scope):
     acct = validate_account()
+    role_def_id = p_role_id if (p_role_id[0] == "/") else acct["id"] + "/sqlRoleDefinitions/" + p_role_id
     q="[?scope=='{}' && principalId=='{}' && roleDefinitionId=='{}'].{{name:name}}".format(acct["id"] + ("" if p_scope=="/" else p_scope)
-        , p_user_id, p_role_id)
+        , p_user_id, role_def_id)
     j = run_az_cmd("az cosmosdb sql role assignment list --account-name {} --resource-group {} --query \"{}\"".format(acct["name"], acct["resourceGroup"],q))
     return j
 
@@ -368,7 +369,7 @@ def do_list_roles():
 # list databases [acct]
 def do_list_databases():
     acct = validate_account()
-    j = run_az_cmd("az cosmosdb sql database list --account-name {} --resource-group {} --query '[].{{name:name}}'".format(acct["name"], acct["resourceGroup"])
+    j = run_az_cmd("az cosmosdb sql database list --account-name {} --resource-group {}".format(acct["name"], acct["resourceGroup"])
         , p_print_cmd = SHOWAZCMD)
     if (len(j) == 0):
         print("~ No databases found")
@@ -412,7 +413,7 @@ def do_grant_role(p_role, p_user, p_scope = ""):
     j = get_roles(p_role)
     if (len(j) == 0):
         raise SQLValueError("Did not find role {} in account {}".format(p_role, acct["name"]))
-    role_id = j[0]["id"]
+    role_id = j[0]["name"]
 
     # get the user ids we will use
     j = run_az_cmd("az ad user list --upn \"{}\" --query \"[].{{objectId:objectId}}\"".format(p_user))
@@ -442,7 +443,7 @@ def do_revoke_role(p_role, p_user, p_scope = ""):
     j = get_roles(p_role)
     if (len(j) == 0):
         raise SQLValueError("Did not find role {} in account {}".format(p_role, acct["name"]))
-    role_id = j[0]["id"]
+    role_id = j[0]["name"]
 
     # get the user ids we will use
     j = run_az_cmd("az ad user list --upn \"{}\" --query \"[].{{objectId:objectId}}\"".format(p_user))

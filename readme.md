@@ -46,6 +46,8 @@ Set up the Azure CLI environment to connect to your account as follows:
 At this point you should be able to call the test scripts provided.  For example:
     `python3 azcosmosdb_perms.py test1.sql`
 
+Note:  This was tested on both Windows 10 and MacOs 11.6
+
 ## Testing Method and Results
 
 We ran three different SQL scripts.
@@ -62,9 +64,9 @@ From each of these scripts we generated the following:
 
 | Test | SQL # Chars | AZ # Chars |
 |-------|-----|------|
-| test1 | 545 | 3734 |
-| test2 | 213 | 1012 |
-| test3 | 423 | 1272 |
+| test1 | 545 | 3082 |
+| test2 | 213 | 987 |
+| test3 | 423 |  1272 |
 
 
 
